@@ -1,0 +1,52 @@
+{
+  "template": {
+    "description": "标准承诺书字段模板",
+    "fields": [
+      {
+        "name": "customer_name",
+        "extractor": {
+          "strategy": "regex",
+          "pattern": "姓名[：:]?\\s*(?P<value>[^\\n\\r]+)"
+        },
+        "comparison": {
+          "strategy": "fuzzy",
+          "threshold": 0.9
+        },
+        "normalizers": []
+      },
+      {
+        "name": "id_number",
+        "extractor": {
+          "strategy": "regex",
+          "pattern": "身份证号[：:]?\\s*(?P<value>[0-9A-Za-z]{6,})"
+        },
+        "comparison": {
+          "strategy": "exact"
+        },
+        "normalizers": []
+      },
+      {
+        "name": "amount",
+        "extractor": {
+          "strategy": "regex",
+          "pattern": "金额[：:]?\\s*(?P<value>[0-9,.]+)"
+        },
+        "comparison": {
+          "strategy": "numeric"
+        },
+        "normalizers": ["numeric"]
+      },
+      {
+        "name": "signing_date",
+        "extractor": {
+          "strategy": "regex",
+          "pattern": "日期[：:]?\\s*(?P<value>[0-9]{4}[-/年.][0-9]{1,2}[-/月.][0-9]{1,2}日?)"
+        },
+        "comparison": {
+          "strategy": "date"
+        },
+        "normalizers": ["date"]
+      }
+    ]
+  }
+}
